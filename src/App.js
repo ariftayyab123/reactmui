@@ -5,7 +5,7 @@ import './index.css';
 function App() {
   return (
     <div>
-       <h1 align="center">Hello</h1>
+       <h1>Hello</h1>
     </div>
   );
 }
