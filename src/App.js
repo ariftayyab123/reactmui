@@ -1,11 +1,12 @@
  
 import './index.css';
+import Test from './Test';
 
 
 function App() {
   return (
     <div>
-       <h1>Hello</h1>
+       <Test />
     </div>
   );
 }
