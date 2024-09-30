@@ -1,12 +1,14 @@
  
 import './index.css';
-import Test from './Test';
-
-
+import Login from './Components/LoginPage/Login';
+import NavBar from './Components/Headers/NavBar';
+import LoginHeader from './Components/Headers/LoginHeader';
 function App() {
   return (
     <div>
-       <Test />
+        {/* //<NavBar/> */}
+        <LoginHeader/>
+        <Login/>
     </div>
   );
 }
