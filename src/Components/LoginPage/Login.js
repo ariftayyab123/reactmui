@@ -1,16 +1,13 @@
 import React from 'react';
+import LoginHeader from '../Headers/LoginHeader';
+import ResponsiveAppBar from '../Headers/NavBar';
+import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
+import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
 import {
     Typography,
     Button,
     TextField,
-    FormGroup,
-    FormControl,
-    FormControlLabel,
-    Checkbox,
-    InputLabel,
-    Select,
-    MenuItem,
-    Card
+    Box,
 } from '@mui/material';
 
 /**
@@ -23,9 +20,9 @@ const Test = () => {
         name: "",
         email: "",
         password: "",
-        CheckIt: false,
-        age: 0,
     });
+    const [isSignUp, setIsSignUp] = React.useState(false);
+    console.log(isSignUp)
 
     /**
      * Handles input field changes and updates the component state.
@@ -47,94 +44,110 @@ const Test = () => {
         console.log(inputs);
     };
 
+    const resetState = (e) => {
+        setIsSignUp(!isSignUp);
+        setInputs({
+            name: "",
+            email: "",
+            password: "",
+        })
+    }
     return (
         <>
-            {/* Optional heading with customizable styles */}
-            {/* <Typography variant="h1" align="center" color="red" sx={{ border: '1px solid black', borderRadius: '10px' }}>
-                The Test Form!
-            </Typography> */}
-            <Card sx={{maxWidth: "100%", minHeight: "100px", align: 'center',  padding: '10px', paddingRight: '20px'}}> 
+
+             <ResponsiveAppBar />
             <div>
-                <form style={{ display: 'flex', flexDirection: 'column' }} onSubmit={handleSubmit} align="center">
-                    <TextField
-                        name="name"
-                        value={inputs.name}
-                        placeholder="Enter Name"
-                        variant="outlined"
-                        type="text"
-                        onChange={handleChange}
-                        sx={{ m: 3, border: '2px solid black', borderRadius: '10px' }}
-                    />
+                <form onSubmit={handleSubmit}>
+                    <Box display="flex"
+                        flexDirection="column"
+                        alignItems="center"
+                        justifyContent="center"
+                        maxWidth={400}
+                        m="auto"
+                        mt={5}
+                        p={3}
+                        borderRadius={5}
+                        boxShadow={"5px 5px 10px #ccc"}
 
-                    <TextField
-                        name="email"
-                        value={inputs.email}
-                        placeholder="Enter Email"
-                        variant="outlined"
-                        type="email"
-                        onChange={handleChange}
-                        sx={{ m: 3, border: '2px solid black', borderRadius: '10px' }}
-                    />
-
-                    <TextField
-                        name="password"
-                        value={inputs.password}
-                        placeholder="Enter Password"
-                        variant="outlined"
-                        type="password"
-                        onChange={handleChange}
-                        sx={{ m: 3, border: '2px solid black', borderRadius: '10px' }}
-                    />
-
-                    <TextField
-                        placeholder="Address"
-                        type="text"
-                        variant="outlined"
-                        sx={{ m: 3, border: '2px solid black', borderRadius: '10px' }}
-                    />
-
-                   
-
-                    <FormControl fullWidth="false" sx={{ m: 3, borderRadius: '10px' }}>
-                        <InputLabel>Age</InputLabel>
-                        <Select
-                            name="age"
-                            value={inputs.age}
-                            label="Age"
-                            onChange={handleChange}
-                            variant='outlined'
-                        >
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
-                        </Select>
-                    </FormControl>
-                    <FormGroup>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={inputs.CheckIt}
-                                    onChange={() => setInputs((prev) => ({
-                                        ...prev,
-                                        CheckIt: !inputs.CheckIt
-                                    }))}
-                                />
+                        sx={{
+                            ":hover": {
+                                boxShadow: "10px 10px 20px #ccc",
                             }
-                            label="Remember Me"
-                        />
-                    </FormGroup>
+                        }}
+                    >
+                        <Typography
+                            variant='h3'
+                            padding={{ xs: 1, sm: 2, md: 3 }}
+                            textAlign={"center"}
+                            color='primary'
 
-                    <Button type="submit" variant="contained"
-                        color='success' sx={{ m: 3 }}>Submit</Button>
+                        >
+                            {isSignUp ? "Sign Up" : "Login"}
+                        </Typography>
+                        {isSignUp && <TextField
+                            onChange={handleChange}
+                            name='name'
+                            value={inputs.name}
+                            margin='normal'
+                            type='text'
+                            variant='outlined'
+                            placeholder='Name'
+                        />}
+                        <TextField
+                            onChange={handleChange}
+                            name='email'
+                            value={inputs.email}
+                            margin='normal'
+                            type='email'
+                            variant='outlined'
+                            placeholder='Email'
+                        />
+                        <TextField
+                            onChange={handleChange}
+                            name='password'
+                            value={inputs.password}
+                            margin='normal'
+                            type='password'
+                            variant='outlined'
+                            placeholder='Password'
+                        />
+
+                        <Button 
+                        endIcon={
+                        isSignUp? <HowToRegOutlinedIcon/> : <LoginOutlinedIcon />}
+                            type='submit'
+                            sx={{ marginTop: 2, borderRadius: 2 }}
+                            variant='contained'
+                            color='warning'
+                        >
+                            {isSignUp ? "Sign Up" : "Login"}
+                        </Button>
+                        <Typography margin={2}
+                            textAlign={"center"}
+                            color='primary'
+                            variant='h7'
+                            textOverflow={"ellipsis"}
+                            top={"10px"}
+                        >
+                            {isSignUp ? "Already have an account?" : "Don't have an account?"}
+                        </Typography>
+
+
+                        <Button endIcon={isSignUp ? <LoginOutlinedIcon /> : <HowToRegOutlinedIcon />}
+
+                            onClick={resetState}
+                            sx={{ borderRadius: 2, textEmphasis: 'bold' }}
+                            variant='contained'
+                            color='primary'
+                            textAlign={"center"}
+
+                        >
+                            {isSignUp ? "Login" : "Sign Up"}
+                        </Button>
+                    </Box>
                 </form>
             </div>
-            <div>
-                <Typography variant="h5" align="center" color="grey" sx={{ mt: 2 }}>
-                    {`Welcome ${inputs.name}!`}
-                </Typography>
 
-            </div>
-            </Card>
         </>
     );
 };
